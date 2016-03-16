@@ -1,0 +1,279 @@
+<!DOCTYPE>
+<html ng-app="TicTacToeGame">
+<head>
+
+	<meta http-equiv= "content type" content = "text/html charset= utf-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css">
+	<link rel="stylesheet" type="text/css" href="newstyle.css">
+  	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/danialfarid-angular-file-upload/5.0.9/ng-file-upload-shim.min.js"></script>
+	<script type="text/javascript"></script>
+	<script src="Tcontroller/Tcontroller.js"></script>
+
+	<title>tic tac toe</title>
+</head>
+<body>
+
+	<div class = "container" ng-controller= "TicTacToeCtrl" >
+
+		<div id= "header" >
+			<h1>Tic Tac Toe Game</h1>
+			<h5 ng-hide= "!logged_in">Welcome {{user.email}} {{user.photo}}</h5>
+		</div>
+
+		<div id= "content">				
+
+			<div id="dots"><i class="fa fa-th fa-lg"></i>
+
+				<nav class="navbar navbar-default" ng-show= "logged_in">
+
+					<div class="panel-group" id="accordion">
+
+
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+							<h4 class="panel-title">
+							  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse1" ng-click="logout()"><i class="fa fa-sign-out"></i> Logout</a>
+							</h4>
+						  </div>
+						 </div>
+
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+							<h4 class="panel-title">
+							  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse2"><i class="fa fa-briefcase"></i> My Account</a>
+							</h4>
+						  </div>
+						 <div id="collapse2" class="panel-collapse collapse">
+
+							<div><a class="btn btn-small btn-danger" ng-click="ChangePassword()"><i class="fa fa-cogs"></i> Change Password</a></div>
+							&nbsp;
+							<div ><a class="btn btn-small btn-danger" ng-click="DeleteAccount(user._id)"><i class="fa fa-ban"></i> Delete Account</a></div>
+
+
+						  </div>
+						</div>
+
+						<div class="panel panel-default">
+						  <div class="panel-heading">
+							<h4 class="panel-title">
+							  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse3"><i class="fa fa-clock-o"></i> History</a>
+							</h4>
+						  </div>
+						  <div id="collapse3" class="panel-collapse collapse">
+							empty
+						  </div>
+						</div>
+
+
+					  </div>
+				 </nav>
+				
+				
+				  <nav class="navbar navbar-default" ng-show= "!logged_in">
+
+					<div class="panel-group" id="accordion">
+
+						<div class="panel panel-default">
+
+						  <div class="panel-heading">
+							<h4 class="panel-title">
+							  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse5"><i class="fa fa-gamepad"></i> Play as Guest</a>
+							</h4>
+						  </div>
+
+					  		<div id="collapse5" class="panel-collapse collapse">
+								<div id = "nav">
+									Player 1 Name: <input type = "text" ng-model = "name1" value "name1"><br>
+									&nbsp;<br>
+									Player 2 Name: <input type = "text" ng-model = "name2" value "name2"><br>
+									
+									Player 1 gets to start the Game
+									<br>
+									&nbsp;<br>	
+									Select X/O for first Player: <input type="radio" id="myRadio1" onclick="myFunction1()" ng-model="select" value="X" ng-change='selection(select)'>X 
+									<script>
+									function myFunction1() {
+									    document.getElementById("myRadio2").disabled = true;
+									}
+									</script>
+
+									<input type="radio" id="myRadio2" onclick="myFunction2()" ng-model="select" value="O" ng-change='selection(select)'>O
+									<br>
+									<script>
+									function myFunction2() {
+									    document.getElementById("myRadio1").disabled = true;
+									}
+									</script>
+									{{name1}} plays with: {{select}}<br>
+									{{message}}<br>
+						
+									<p class = "message_win">{{message_win}}</p>
+						
+									SCORE<br>
+									{{name1}} :{{Xscore}}<br>
+									{{name2}} :{{Oscore}}<br>
+									&nbsp;<br>
+
+									<button align = "center" class = "btn btn-danger" onclick="resetradio()" ng-click= "Reset()">Reset</button><br>
+									&nbsp;
+									<button align = "center" class = "btn btn-danger" onclick="resetradio()" ng-click="StartNewGame()">Start New Game</button>
+
+									<script>
+									 function resetradio(){
+									    document.getElementById("myRadio1").disabled = false;
+									    document.getElementById("myRadio2").disabled = false;
+									 }
+									</script>
+
+								</div>					
+							   </div>
+
+							 </div>
+
+
+					 <div class="panel panel-default">
+
+						<div class="panel-heading">
+							<h4 class="panel-title">
+							  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse1"><i class="fa fa-user fa-fw"></i> Login</a>
+							</h4>
+						</div>
+
+					  <div id="collapse1" class="panel-collapse collapse in">
+
+						<form name="frm" ng-submit= "login()" autocomplete= "on">
+							<p>&nbsp;<input type="email" name="email" placeholder="Email" ng-model="user.email" required>
+							<span ng-show = "frm.email.$dirty && frm.email.$error.required">required</span>
+							<span ng-show = "frm.email.$dirty && frm.email.$error.email">not an email!</span>
+							</p>
+							<p>&nbsp;<input type="password" name="password" placeholder="Password" ng-model="user.password" required ng-minlength = "5" ng-maxlength ="9">
+							<span ng-show = "frm.password.$dirty && frm.password.$error.required">required</span>
+							<span ng-show = "frm.password.$dirty && frm.password.$error.minlength">too short!</span>
+							<span ng-show = "frm.password.$dirty && frm.password.$error.maxlength">exceeded length!</span>
+							</p>
+
+							&nbsp;<input type="checkbox" name="remember_me" id="remember_me">
+							Remember me on this computer<br>
+
+							&nbsp;<a href="#">Forgot Password?</a><br>
+							&nbsp;<br>
+							&nbsp;<input type="Submit" class ="btn btn-danger" name="submit"  ng-disabled="frm.$invalid">
+						</form>
+
+					</div>
+				</div>
+
+					
+					<div class="panel panel-default">
+
+					  <div class="panel-heading">
+						<h4 class="panel-title">
+						  <a class="btn btn-small btn-danger" data-toggle="collapse" data-parent="#accordion" href="#collapse4"><i class="fa fa-pencil-square fa-fw"></i> Register</a>
+						</h4>
+					  </div>
+
+					 <div id="collapse4" class="panel-collapse collapse">
+					    <form name = "frm2" ng-submit="register()" autocomplete="on"> 
+							<h3> Sign up </h3>				
+							<p> 
+								<label class="youmail"><i class="fa fa-envelope"></i> Your email</label>
+								<input ng-model="user.emailsignup" name="emailsignup" required="required" type="email" placeholder="email"/>
+								<span ng-show = "frm2.emailsignup.$dirty && frm2.emailsignup.$error.required">required</span>
+								<span ng-show = "frm2.emailsignup.$dirty && frm2.emailsignup.$error.email">not an email!</span> 
+							</p>
+							<p> 
+								<label class="youpasswd"><i class="fa fa-lock"></i> Your password </label>
+								<input ng-model="user.passwordsignup" name="passwordsignup" type="password" placeholder="password" required ng-minlength = "5" ng-maxlength ="9"/>
+								<span ng-show = "frm2.passwordsignup.$dirty && frm2.passwordsignup.$error.required">required</span>
+								<span ng-show = "frm2.passwordsignup.$dirty && frm2.passwordsignup.$error.minlength">too short!</span>
+								<span ng-show = "frm2.passwordsignup.$dirty && frm2.passwordsignup.$error.maxlength">exceeded length!!</span>
+							</p>
+							<p> 
+								<label class="youpasswd"><i class="fa fa-lock"></i> Please confirm your password </label>
+								<input ng-model="user.passwordsignup" name="passwordsignup" required="required" type="password" placeholder="confirm password"/>
+							</p>
+							<p> 
+								<label class="youpic"><i class="fa fa-upload"></i> Profile Picture</label>
+								<input ng-model="user.photo" ngf-select="" name="file" id="file" type="file" accept="image/*"/>
+							</p>
+							<p>	
+								<input type="button" ng-click="upload(user.photo)" value="Upload">
+								<img ng-show="user.photo != null" ngf-src="user.photo" class="thumb">
+					            <span class="progress" ng-show="user.photo.progress >= 0">
+					                <div style="width:{{user.photo.progress}}%" {{user.photo.progress + '%'}} class="ng-binding"></div>
+					            </span>
+					            <span ng-show="user.photo.result">Upload Successful</span>
+							</p>
+							<p class="signin button"> 
+								<input type="submit" value="Sign up"/> 
+							</p>				
+						 </form>
+					  </div>
+
+
+
+				</div>
+
+			
+			   </div> 	    	
+
+			</nav>
+
+		</div>	
+
+
+			<div class= "main">	
+							<a href="#" onclick="document.getElementById('display').style.display = 'block';" class ="real" ng-hide="!logged_in" ng-click="StartNewGame()">&nbsp; &nbsp; Start new Game</a>
+
+
+							<div action="#" id = "display" ng-hide="!logged_in">
+								Player 1 Name: <input type = "text" ng-model = "name1" value "name1"><br>
+								&nbsp;<br>
+								Player 2 Name: <input type = "text" ng-model = "name2" value "name2"><br>
+								
+								Player 1 gets to start the Game
+								<br>
+								&nbsp;<br>	
+								Select X/O for first Player: <input type="radio" ng-model="select" value="X" ng-change='selection(select)'>X 
+								<input type="radio" ng-model="select" value="O" ng-change='selection(select)'>O
+								<br>
+								{{name1}} plays with: {{select}}<br>
+								{{message}}<br>
+								
+								
+								SCORE<br>
+								{{name1}} :{{Xscore}}<br>
+								{{name2}} :{{Oscore}}<br>
+								&nbsp;<br>
+
+								<button align = "center" class = "btn btn-danger" ng-click= "Reset()">Reset</button><br>
+
+							</div>
+
+						<center>
+							<table>
+								<tr ng-repeat = "i in [0,1,2]">
+									<td ng-repeat = "j in [0,1,2]">
+										<button = {{i+'_'+j}} ng-class="{'btn-default': tttcolor[i][j], 'btn-success': !tttcolor[i][j]}" ng-click = "Click(i,j)">{{ttttext[i][j]}}</button>
+									</td>
+								</tr>
+							</table>
+							<p class = "message_win">{{message_win}}</p>
+						</center>
+
+			</div>
+				
+		</div>
+
+		<div id = "footer">
+			<h6>&copy; 2015 Suryatapa Roy</h6>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,132 @@
+body{
+	background-color: white;
+}
+.container{
+	margin-left: auto;
+	margin-right: auto;
+	width: 100%;
+	background-color: #F6CED8;
+}
+#header{
+	background-color: #FF0000;
+	width: 100%;
+}
+h1{
+	color: black;
+	text-align: center;
+}
+
+#content{
+}
+#nav{
+	font-size: 90%;
+	font-family: Trebuchet MS, Helvetica, sans-serif;
+	font-weight: bold;
+}
+input.ng-invalid.ng-dirty{
+	border:1px solid red;
+}
+.fa-th{
+	float: right;
+	background: #F6CED8;
+	margin-right: 30px;
+}
+#dots nav{
+	display: none;
+  	position: absolute;
+  	top: 85px;
+  	right: 70px;
+}
+#dots:hover nav{
+	display: block;
+  height: 60px;
+  width: 200px;
+    border-radius: 5px;    
+  text-decoration: none;
+  font-size:90%;
+  box-shadow: 0 3px 0 #444; 
+}
+
+
+::-webkit-input-placeholder  { 
+	color: rgb(190, 188, 188); 
+	font-style: italic;
+}
+input:-moz-placeholder,
+textarea:-moz-placeholder{ 
+	color: rgb(190, 188, 188);
+
+	font-style: italic;
+} 
+#login .btn-danger{
+	height: 24px;
+	font-size: 100%;
+	color: black;
+	width: 130px;
+	border-radius: 4px;
+}
+
+.X{
+	text-decoration: none;
+	color: red;
+	text-align: left;
+	font-size: 200%;
+}
+.O{
+	text-decoration: none;
+	color: red;
+	text-align: center;
+	font-size: 200%;
+}
+.main{
+	width: 800px;
+	background-color: #F6D8CE;	
+	float:center;
+
+}
+.real{
+	float: right;
+	font-weight: bold;
+	color: red;
+}
+.real:hover{
+	text-decoration: none;
+	color: green;
+}
+#display{
+	display: none;
+	float: left;
+}
+button{
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+	border-color: #FF0000; 
+	font-size: 70px;
+	color: #FF0000;
+	
+}
+.btn-danger{
+	height: 34px;
+	font-size: 17px;
+	color: black;
+	width: 160px;
+}
+
+#footer{
+	background-color: #EEEEEE;
+	clear: both;
+	text-align: right;
+}
+h6,h5{
+	color: black;
+	font-weight: bold;
+	font-style: italic;
+	font-family: 
+}
+.message_win {
+	text-decoration: none;
+	color: #f85032;
+	font-size: 100%;
+	font-family: Georgia;
+}
